@@ -463,6 +463,7 @@ function adicionarLinhaTabela(nome, telefone, data) {
                         clientes[clienteIndex].data = novaDataVencimento;
                         salvarClientes(clientes);
                         atualizarCorCelulaData(celulaData, novaDataVencimento);
+location.reload();
                     }
                 }
             }
