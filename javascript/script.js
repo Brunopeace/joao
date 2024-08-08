@@ -436,40 +436,41 @@ function adicionarLinhaTabela(nome, telefone, data) {
     const celulaAcoes = novaLinha.insertCell(4);
 
     celulaAcoes.appendChild(criarBotao("Editar", function() {
-        const novoNome = prompt("Digite o novo nome do cliente:", nome);
-        const novoTelefone = prompt("Digite o novo telefone do cliente:", telefone);
-        const novaData = prompt("Digite a nova data de vencimento (DD/MM/AAAA):", new Date(data).toLocaleDateString('pt-BR'));
+    const novoNome = prompt("Digite o novo nome do cliente:", nome);
+    const novoTelefone = prompt("Digite o novo telefone do cliente:", telefone);
+    const novaData = prompt("Digite a nova data de vencimento (DD/MM/AAAA):", new Date(data).toLocaleDateString('pt-BR'));
 
-        if (novoNome && validarTelefone(novoTelefone) && novaData) {
-            const partesData = novaData.split('/');
-            if (partesData.length === 3) {
-                const novaDataVencimento = new Date(partesData[2], partesData[1] - 1, partesData[0]);
-                if (!isNaN(novaDataVencimento.getTime())) {
-                    const dataAnterior = new Date(data).toLocaleDateString('pt-BR');
-                    const novaDataFormatada = novaDataVencimento.toLocaleDateString('pt-BR');
+    // Verifica se o usuário não cancelou algum dos prompts
+    if (novoNome !== null && novoTelefone !== null && novaData !== null && novoNome && validarTelefone(novoTelefone)) {
+        const partesData = novaData.split('/');
+        if (partesData.length === 3) {
+            const novaDataVencimento = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+            if (!isNaN(novaDataVencimento.getTime())) {
+                const dataAnterior = new Date(data).toLocaleDateString('pt-BR');
+                const novaDataFormatada = novaDataVencimento.toLocaleDateString('pt-BR');
 
-                    if (dataAnterior !== novaDataFormatada) {
-                        atualizarClientesAlterados(nome, dataAnterior, novaDataFormatada);
-                    }
+                if (dataAnterior !== novaDataFormatada) {
+                    atualizarClientesAlterados(nome, dataAnterior, novaDataFormatada);
+                }
 
-                    celulaNome.innerText = novoNome;
-                    celulaTelefone.innerText = novoTelefone;
-                    celulaData.innerText = novaDataFormatada;
+                celulaNome.innerText = novoNome;
+                celulaTelefone.innerText = novoTelefone;
+                celulaData.innerText = novaDataFormatada;
 
-                    const clientes = carregarClientes();
-                    const clienteIndex = clientes.findIndex(c => c.nome.toLowerCase() === nome.toLowerCase());
-                    if (clienteIndex !== -1) {
-                        clientes[clienteIndex].nome = novoNome;
-                        clientes[clienteIndex].telefone = novoTelefone;
-                        clientes[clienteIndex].data = novaDataVencimento;
-                        salvarClientes(clientes);
-                        atualizarCorCelulaData(celulaData, novaDataVencimento);
-location.reload();
-                    }
+                const clientes = carregarClientes();
+                const clienteIndex = clientes.findIndex(c => c.nome.toLowerCase() === nome.toLowerCase());
+                if (clienteIndex !== -1) {
+                    clientes[clienteIndex].nome = novoNome;
+                    clientes[clienteIndex].telefone = novoTelefone;
+                    clientes[clienteIndex].data = novaDataVencimento;
+                    salvarClientes(clientes);
+                    atualizarCorCelulaData(celulaData, novaDataVencimento);
+                    location.reload();
                 }
             }
         }
-    }));
+    }
+}));
 
     celulaAcoes.appendChild(criarBotao("Excluir", function() {
         if (confirm("Tem certeza de que deseja excluir este cliente?")) {
