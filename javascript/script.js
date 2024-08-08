@@ -52,9 +52,11 @@ document.getElementById('backToTop').onclick = function() {
 };
 
 
+
 function verificarAcesso() {
     const uuidEsperado = ['d0709af9-0c05-4f56-8808-30f18efa7f86',
- 'bebd18af-b85d-48f5-a651-e73c084da800];
+ 'bebd18af-b85d-48f5-a651-e73c084da800',
+ '897cfa52-6839-4f03-9d7b-353caff240ff'];
     let uuidArmazenado = localStorage.getItem('uuid');
 
     if (!uuidArmazenado) {
@@ -467,6 +469,7 @@ function adicionarLinhaTabela(nome, telefone, data) {
         }
     }
 }));
+    
 
     celulaAcoes.appendChild(criarBotao("Excluir", function() {
         if (confirm("Tem certeza de que deseja excluir este cliente?")) {
@@ -621,6 +624,7 @@ function atualizarDataVencimento(nomeCliente, novaData) {
             clienteExistente.data = novaData;
             localStorage.setItem('clientes', JSON.stringify(clientes));
             atualizarClientesAlterados(nomeCliente, dataAnterior, novaDataFormatada);
+    
         }
     }
 }
@@ -643,6 +647,7 @@ function registrarClienteAlterado(nome) {
     }
 
     localStorage.setItem('clientesAlterados', JSON.stringify(clientesAlterados));
+    
 }
 
 
@@ -998,7 +1003,6 @@ function excluirClientesSelecionados() {
     atualizarInfoClientes();
     carregarPagina();
 }
-
 
 
 window.onload = function() {
