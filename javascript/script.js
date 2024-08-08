@@ -355,6 +355,7 @@ function restaurarSelecionados() {
     carregarLixeiraPagina();
     atualizarInfoClientes();
     atualizarTabelaClientes();
+    carregarPagina();
 }
 
 
