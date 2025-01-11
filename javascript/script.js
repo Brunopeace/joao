@@ -39,6 +39,14 @@ setTimeout(() => {
     }
 }, 15000);
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Esconde o loader após 2 segundos
+    setTimeout(() => {
+        const loading = document.getElementById("loading");
+        loading.style.display = "none";
+    }, 3000);
+});
+
 function verificarAcesso() {
     const uuidEsperado = ['d0709af9-0c05-4f56-8808-30f18efa7f86',
  'c3e43422-1275-4c8b-84c1-eec682fadf1f'];
